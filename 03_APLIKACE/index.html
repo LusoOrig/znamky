@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filatelistická sbírka – katalog</title>
+<link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body>
+<header class="masthead">
+  <div class="inner">
+    <div class="brand">
+      <small>Soukromá sbírka · digitální katalog</small>
+      <h1>Filatelistická sbírka</h1>
+      <p>Album poštovních známek s identifikací, katalogovými čísly a orientačním oceněním</p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+  </div>
+  <nav class="tabs">
+    <button data-v="album" class="active">Album</button>
+    <button data-v="stats">Statistiky</button>
+    <button data-v="review">Ke kontrole <span class="badge" id="revBadge"></span></button>
+    <button data-v="sources">Zdroje</button>
+  </nav>
+</header>
+
+<main>
+<section id="view-album">
+ <div class="layout">
+  <aside class="filters" aria-label="Filtry">
+    <h3>Filtry <button id="reset" type="button">Vymazat</button></h3>
+    <div class="f"><label for="fZeme">Země</label><select id="fZeme"></select></div>
+    <div class="f"><label>Rok vydání</label><div class="row"><input id="fRokOd" type="number" min="1840" max="2030" aria-label="Rok od"><span>–</span><input id="fRokDo" type="number" min="1840" max="2030" aria-label="Rok do"></div></div>
+    <div class="f"><label for="fMena">Měna</label><select id="fMena"></select></div>
+    <div class="f"><label for="fNom">Nominální hodnota</label><select id="fNom"></select></div>
+    <div class="f"><label for="fStav">Stav</label><select id="fStav"></select></div>
+    <div class="f"><label for="fZach">Zachovalost</label><select id="fZach"><option value="">Jakákoli</option><option value="bez zjevných vad">bez zjevných vad</option><option value="poškozená">poškozená</option></select></div>
+    <div class="f"><label for="fCena">Odhadovaná cena</label><select id="fCena"><option value="">Všechny známky</option><option value="ano">jen oceněné</option><option value="ne">jen neoceněné</option></select>
+      <div class="row" style="margin-top:6px"><input id="fCenaOd" type="number" step="0.05" min="0" placeholder="od €" aria-label="Cena od"><span>–</span><input id="fCenaDo" type="number" step="0.05" min="0" placeholder="do €" aria-label="Cena do"></div></div>
+    <div class="f"><label for="fJist">Jistota identifikace (kat. číslo)</label><select id="fJist"><option value="">Jakákoli</option><option value="ověřené">ověřené</option><option value="pravděpodobné">pravděpodobné</option><option value="neurčené">neurčené</option></select></div>
+    <div class="f"><label for="fJistC">Jistota ocenění</label><select id="fJistC"><option value="">Jakákoli</option><option value="střední">střední</option><option value="nízká">nízká</option><option value="bez ocenění">bez ocenění</option></select></div>
+    <div class="f"><label for="fDavka">Dávka identifikace</label><select id="fDavka"><option value="">Obě dávky</option><option value="identifikováno (dávka 1)">dávka 1 (Bavorsko, Württembersko)</option><option value="identifikováno (dávka 2)">dávka 2 (ostatní)</option></select></div>
+    <div class="f"><label class="chk"><input id="fSkup" type="checkbox"> jen spojené kusy (dvojice, pásky, bloky)</label></div>
+  </aside>
+  <div>
+    <div class="toolbar">
+      <div class="search"><input id="q" type="search" placeholder="Hledat: země, série, motiv, Michel, nominál, barva, ID…" aria-label="Fulltextové vyhledávání" autocomplete="off"></div>
+      <select id="sort" aria-label="Řazení">
+        <option value="poradi">Řadit: pořadí na fotografiích</option>
+        <option value="zeme">Řadit: země</option>
+        <option value="rok">Řadit: rok vydání</option>
+        <option value="nom">Řadit: nominální hodnota</option>
+        <option value="cena">Řadit: odhadovaná cena</option>
+        <option value="cat">Řadit: katalogové číslo</option>
+      </select>
+      <button class="btn" id="dir" type="button">↑ vzestupně</button>
+      <button class="btn sz" data-s="s" type="button" title="Malé náhledy">S</button><button class="btn sz on" data-s="m" type="button" title="Střední náhledy">M</button><button class="btn sz" data-s="l" type="button" title="Velké náhledy">L</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+ </div>
+</section>
+<section id="view-stats" class="hidden"><div class="wrap" id="stats"></div></section>
+<section id="view-review" class="hidden"><div class="wrap" id="review"></div></section>
+<section id="view-sources" class="hidden"><div class="wrap" id="sources"></div></section>
+</main>
+
+<div class="overlay hidden" id="overlay" role="dialog" aria-modal="true" aria-label="Detail známky">
+  <div class="sheet">
+    <div class="viewer">
+      <div class="vbar">
+        <div class="seg" id="seg"><button data-m="crop" class="on" type="button">Výřez známky</button><button data-m="photo" type="button">Původní fotografie</button></div>
+        <span class="sp"></span>
+        <a id="oFull" target="_blank">Výřez v plném rozlišení ↗</a>
+        <a id="oJpg" target="_blank">Fotografie (JPEG) ↗</a>
+        <a id="oHeic" target="_blank">Originál HEIC ↗</a>
+      </div>
+      <div class="stage" id="stage"></div>
+      <button class="navbtn prev" id="prev" type="button" title="Předchozí (←)">‹</button>
+      <button class="navbtn next" id="next" type="button" title="Další (→)">›</button>
+      <div class="vfoot" id="vfoot"></div>
+    </div>
+    <div class="entry" id="entry"></div>
+  </div>
+</div>
+<footer id="gen"></footer>
+<script src="app.js?v=9"></script>
+</body>
+</html>
