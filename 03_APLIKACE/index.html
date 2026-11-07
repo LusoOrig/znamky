@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Filatelistická sbírka – katalog</title>
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body>
 <header class="masthead">
@@ -38,13 +38,13 @@
     <div class="f"><label for="fCena">Odhadovaná cena</label><select id="fCena"><option value="">Všechny známky</option><option value="ano">jen oceněné</option><option value="ne">jen neoceněné</option></select>
       <div class="row" style="margin-top:6px"><input id="fCenaOd" type="number" step="0.05" min="0" placeholder="od €" aria-label="Cena od"><span>–</span><input id="fCenaDo" type="number" step="0.05" min="0" placeholder="do €" aria-label="Cena do"></div></div>
     <div class="f"><label for="fJist">Jistota identifikace (kat. číslo)</label><select id="fJist"><option value="">Jakákoli</option><option value="ověřené">ověřené</option><option value="pravděpodobné">pravděpodobné</option><option value="neurčené">neurčené</option></select></div>
-    <div class="f"><label for="fJistC">Jistota ocenění</label><select id="fJistC"><option value="">Jakákoli</option><option value="střední">střední</option><option value="nízká">nízká</option><option value="bez ocenění">bez ocenění</option></select></div>
+    <div class="f"><label for="fJistC">Jistota ocenění</label><select id="fJistC"><option value="">Jakákoli</option><option value="nízká">nízká</option><option value="bez ocenění">bez ocenění</option></select></div>
     <div class="f"><label for="fDavka">Dávka identifikace</label><select id="fDavka"><option value="">Obě dávky</option><option value="identifikováno (dávka 1)">dávka 1 (Bavorsko, Württembersko)</option><option value="identifikováno (dávka 2)">dávka 2 (ostatní)</option></select></div>
     <div class="f"><label class="chk"><input id="fSkup" type="checkbox"> jen spojené kusy (dvojice, pásky, bloky)</label></div>
   </aside>
   <div>
     <div class="toolbar">
-      <div class="search"><input id="q" type="search" placeholder="Hledat: země, série, motiv, Michel, nominál, barva, ID…" aria-label="Fulltextové vyhledávání" autocomplete="off"></div>
+      <div class="search"><input id="q" type="search" placeholder="Hledat: země, série, motiv, Michel, StampWorld (SW 123), nominál, barva, ID…" aria-label="Fulltextové vyhledávání" autocomplete="off"></div>
       <select id="sort" aria-label="Řazení">
         <option value="poradi">Řadit: pořadí na fotografiích</option>
         <option value="zeme">Řadit: země</option>
@@ -87,6 +87,6 @@
 </div>
 <footer id="gen"></footer>
 <script>window.ZN_WEB=true;</script>
-<script src="app.js?v=12"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>
