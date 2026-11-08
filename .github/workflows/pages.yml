@@ -19,6 +19,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Složení app.js z částí (soubor je větší než limit pro nahrání přes API)
+        run: |
+          if ls 03_APLIKACE/_parts/app.js.part* >/dev/null 2>&1; then
+            cat 03_APLIKACE/_parts/app.js.part* > 03_APLIKACE/app.js
+            echo "$(cat 03_APLIKACE/_parts/app.js.sha256)  03_APLIKACE/app.js" | sha256sum -c -
+            rm -rf 03_APLIKACE/_parts
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
