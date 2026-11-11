@@ -179,3 +179,5 @@ footer{max-width:1600px;margin:0 auto;padding:0 28px 30px;color:var(--muted);fon
   .viewer{min-height:55vh}
 }
 @media print{.masthead nav,.filters,.toolbar{display:none}}
+
+.mount .flag.pf{top:auto;bottom:6px;left:6px;background:rgba(122,40,30,.8);color:#fff3e6}
